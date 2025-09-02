@@ -2,8 +2,6 @@ import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
 import bcrypt from "bcryptjs";
 import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
-import { success } from "zod";
-import { error } from "console";
 
 export async function POST(request: Request) {
   await dbConnect();
@@ -28,6 +26,7 @@ export async function POST(request: Request) {
     const existingUserByEmail = await UserModel.findOne({ email });
 
     const verifyCode = Math.floor(100000 + Math.random() * 900000).toString();
+    
     if (existingUserByEmail) {
       if (existingUserByEmail.isVerified) {
         return Response.json(

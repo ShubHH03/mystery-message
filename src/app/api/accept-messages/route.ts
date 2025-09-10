@@ -46,7 +46,7 @@ export async function POST(request: Request) {
         message: "Message acceptance status updated successfully",
         updatedUser,
       },
-      { status: 200 }
+      { status: 201 }
     );
   } catch (error) {
     console.error("Error updating message acceptance status:", error);

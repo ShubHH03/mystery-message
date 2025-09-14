@@ -16,8 +16,6 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  FormControl,
-  FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -78,7 +76,7 @@ const page = () => {
       console.error("Error in user signup", error);
       const axiosError = error as AxiosError<ApiResponse>;
       let errorMessage = axiosError.response?.data.message;
-      toast("Signup failed", {
+      toast("Sign-Up failed", {
         description: errorMessage,
       });
     } finally {

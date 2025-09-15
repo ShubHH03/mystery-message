@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { verifySchema } from "@/schema/verifySchema";
 import { ApiResponse } from "@/types/ApiResponse";
@@ -9,15 +9,20 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from "@/components/ui/input";
+} from "@/components/ui/form";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
+import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
 
 const VerifyAccount = () => {
   const router = useRouter();
@@ -30,15 +35,15 @@ const VerifyAccount = () => {
 
   const onSubmit = async (data: z.infer<typeof verifySchema>) => {
     try {
-      const response = await axios.post(`api/verify-code`, {
+      const response = await axios.post("/api/verify-code", {
         username: params.username,
         code: data.code,
       });
 
-      toast("Success", {  
+      toast("Success", {
         description: response.data.message,
       });
-      router.replace("sign-in");
+      router.replace("/sign-in");
     } catch (error) {
       console.error("Error in user signup", error);
       const axiosError = error as AxiosError<ApiResponse>;
@@ -48,7 +53,7 @@ const VerifyAccount = () => {
     }
   };
 
-   return (
+  return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
         <div className="text-center">
@@ -65,7 +70,20 @@ const VerifyAccount = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Verification Code</FormLabel>
-                  <Input {...field} />
+                  <InputOTP
+                    maxLength={6}
+                    pattern={REGEXP_ONLY_DIGITS_AND_CHARS}
+                    {...field}
+                  >
+                    <InputOTPGroup>
+                      <InputOTPSlot index={0} />
+                      <InputOTPSlot index={1} />
+                      <InputOTPSlot index={2} />
+                      <InputOTPSlot index={3} />
+                      <InputOTPSlot index={4} />
+                      <InputOTPSlot index={5} />
+                    </InputOTPGroup>
+                  </InputOTP>
                   <FormMessage />
                 </FormItem>
               )}

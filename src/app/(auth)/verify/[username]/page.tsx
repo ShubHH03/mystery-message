@@ -40,14 +40,14 @@ const VerifyAccount = () => {
         code: data.code,
       });
 
-      toast("Success", {
+      toast.success("Success", {
         description: response.data.message,
       });
       router.replace("/sign-in");
     } catch (error) {
       console.error("Error in user signup", error);
       const axiosError = error as AxiosError<ApiResponse>;
-      toast("Signup failed", {
+      toast.error("Signup failed", {
         description: axiosError.response?.data.message
       });
     }

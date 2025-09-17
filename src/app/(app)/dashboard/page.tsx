@@ -41,7 +41,7 @@ function UserDashboard() {
       setValue('acceptMessages', response.data.isAcceptingMessages ?? false);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
-      toast('Error',{
+      toast.error('Error',{
         description:
           axiosError.response?.data.message ??
           'Failed to fetch message settings'
@@ -65,7 +65,7 @@ function UserDashboard() {
         }
       } catch (error) {
         const axiosError = error as AxiosError<ApiResponse>;
-        toast('Error',{
+        toast.error('Error',{
           description:
             axiosError.response?.data.message ?? 'Failed to fetch messages'
         });
@@ -93,7 +93,7 @@ function UserDashboard() {
         acceptMessages: !acceptMessages,
       });
       setValue('acceptMessages', !acceptMessages);
-      toast(response.data.message);
+      toast.success(response.data.message);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
       toast('Error',{
